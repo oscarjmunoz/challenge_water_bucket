@@ -1,7 +1,7 @@
 import React from 'react';
-import Algorithm from './components/Algorithm';
+import Algorithm from './Components/Algorithm';
 import Form from './Components/JugForm';
-import Solution from './components/Solution';
+import Solution from './Components/Solution';
 
 function App() {
   const {
