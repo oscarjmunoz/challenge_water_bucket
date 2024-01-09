@@ -42,7 +42,7 @@ Start the server
 
 ## Demo
 
-https://oscarjmunoz.github.io/challenge_water_bucket/
+https://challenge-water-bucket.vercel.app/
 
 
 ## Running Tests
