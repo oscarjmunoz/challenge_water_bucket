@@ -1,0 +1,15 @@
+.input-field-container {
+    margin-bottom: 15px;
+  }
+  
+  .input-field-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input-field-container input {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }

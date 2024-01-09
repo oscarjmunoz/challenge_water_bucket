@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import InputField from './InputField';
-import './css/JugForm.css';
+import '../Styles/JugForm.css';
 
-const validateInputs = (x, y, z) => {
-  if (![x, y, z].every(value => value.trim())) {
+function validateInputs(x, y, z) {
+  if (!x || !y || !z) {
     return 'Please fill in all fields.';
   }
 
@@ -11,7 +11,7 @@ const validateInputs = (x, y, z) => {
   const parsedY = parseInt(y);
   const parsedZ = parseInt(z);
 
-  if ([parsedX, parsedY, parsedZ].some(isNaN)) {
+  if (isNaN(parsedX) || isNaN(parsedY) || isNaN(parsedZ)) {
     return 'Values must be integers.';
   }
 
@@ -20,9 +20,9 @@ const validateInputs = (x, y, z) => {
   }
 
   return '';
-};
+}
 
-const JugForm = ({ onSolve, onClear }) => {
+function JugForm({ onSolve, onClear }) {
   const [x, setX] = useState('');
   const [y, setY] = useState('');
   const [z, setZ] = useState('');
@@ -30,7 +30,17 @@ const JugForm = ({ onSolve, onClear }) => {
 
   const handleSolve = () => {
     const validationError = validateInputs(x, y, z);
-    validationError ? setError(validationError) : onSolve(parseInt(x), parseInt(y), parseInt(z));
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    const parsedX = parseInt(x);
+    const parsedY = parseInt(y);
+    const parsedZ = parseInt(z);
+
+    setError('');
+    onSolve(parsedX, parsedY, parsedZ);
   };
 
   const handleClear = () => {
@@ -53,6 +63,6 @@ const JugForm = ({ onSolve, onClear }) => {
       {error && <p className="error">{error}</p>}
     </div>
   );
-};
+}
 
 export default JugForm;

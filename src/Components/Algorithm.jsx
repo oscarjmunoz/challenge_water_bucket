@@ -1,24 +1,9 @@
-import { useReducer } from 'react';
-
-const initialState = {
-  solution: [],
-  hasSolved: false,
-  hasCleared: false,
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'SET_SOLUTION':
-      return { ...state, solution: action.payload, hasSolved: true, hasCleared: false };
-    case 'CLEAR_SOLUTION':
-      return { ...state, solution: [], hasSolved: false, hasCleared: true };
-    default:
-      return state;
-  }
-};
+import { useState } from 'react';
 
 function Algorithm() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [solution, setSolution] = useState([]);
+  const [hasSolved, setHasSolved] = useState(false);
+  const [hasCleared, setHasCleared] = useState(false);
 
   const solveWaterJugChallenge = (x, y, z) => {
     const visitedStates = new Set();
@@ -30,7 +15,8 @@ function Algorithm() {
       const [jugX, jugY] = state;
 
       if (jugX === z || jugY === z) {
-        dispatch({ type: 'SET_SOLUTION', payload: steps });
+        setSolution(steps);
+        setHasSolved(true);
         solutionFound = true;
         break;
       }
@@ -60,18 +46,23 @@ function Algorithm() {
     }
 
     if (!solutionFound) {
-      dispatch({ type: 'SET_SOLUTION', payload: [] });
+      setSolution([]);
+      setHasSolved(true);
     }
 
-    dispatch({ type: 'CLEAR_SOLUTION' });
+    setHasCleared(false);
   };
 
   const handleClear = () => {
-    dispatch({ type: 'CLEAR_SOLUTION' });
+    setSolution([]);
+    setHasCleared(true);
+    setHasSolved(false);
   };
 
   return {
-    ...state,
+    solution,
+    hasSolved,
+    hasCleared,
     solveWaterJugChallenge,
     handleClear,
   };
